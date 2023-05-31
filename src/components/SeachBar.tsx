@@ -48,7 +48,9 @@ export function Search() {
     }
   }, [isModalOpen, token])
 
-  const handleSearchButtonClick = (event) => {
+  const handleSearchButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     event.preventDefault()
     setIsModalOpen(true)
   }
@@ -57,7 +59,7 @@ export function Search() {
     setIsModalOpen(false)
   }
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.MouseEvent<HTMLButtonElement>) => {
     const query = event.target.value
     setSearchQuery(query)
 
