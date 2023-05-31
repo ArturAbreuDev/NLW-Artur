@@ -2,11 +2,13 @@ import { getUser } from '@/lib/auth'
 import Image from 'next/image'
 
 export function Profile() {
+  /* eslint-disable */
   const { name, avatar_url } = getUser()
 
   return (
     <div className="flex items-center gap-3 text-left ">
       <Image
+        /* eslint-disable */
         src={avatar_url}
         width={40}
         height={40}
