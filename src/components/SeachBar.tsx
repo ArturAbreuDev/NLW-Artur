@@ -6,13 +6,6 @@ import { FaUser } from 'react-icons/fa'
 import { api } from '@/lib/api'
 import Cookie from 'js-cookie'
 
-interface Memory {
-  id: string
-  coverUrl: string
-  excerpt: string
-  createdat: string
-}
-
 interface User {
   id: string
   name: string
