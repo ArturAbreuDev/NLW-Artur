@@ -24,7 +24,7 @@ export default function EditMemory({
   const [coverUrl, setCoverUrl] = useState(initialCoverUrl)
   const [isPublic, setIsPublic] = useState(initialIsPublic)
   const [selectedImage, setSelectedImage] = useState(null)
-  const [selectedImageUrl, setSelectedImageUrl] = useState(null)
+  const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null)
 
   const handleEdit = async () => {
     try {
