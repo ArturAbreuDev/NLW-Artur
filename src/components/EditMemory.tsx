@@ -129,7 +129,7 @@ export default function EditMemory({
                 accept="image/*"
                 id="media"
                 className="hidden"
-                onChange={(e) => handleMediaSelect(e.target.files[0])}
+                onChange={(e) => handleMediaSelect(e.target.files?.[0])}
               />
               {selectedImageUrl && (
                 <img
