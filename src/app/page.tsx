@@ -15,6 +15,8 @@ interface Memory {
   id: string
   coverUrl: string
   excerpt: string
+  createdAt: any
+  isPublic: boolean
 }
 
 export default async function Home() {
