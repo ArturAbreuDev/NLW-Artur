@@ -6,7 +6,7 @@ import { Camera } from 'lucide-react'
 
 interface EditMemoryProps {
   id: string
-  token: string
+  token: any
   setMemories: React.Dispatch<React.SetStateAction<Memory[]>>
   memories: Memory[]
   initialContent: string

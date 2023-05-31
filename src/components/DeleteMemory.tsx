@@ -4,7 +4,7 @@ import { FiX } from 'react-icons/fi'
 
 interface DeleteProps {
   id: string
-  token: string
+  token: any
   setMemories: React.Dispatch<React.SetStateAction<Memory[]>>
   memories: Memory[]
 }
