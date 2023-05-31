@@ -53,7 +53,6 @@ export default async function Home() {
                 <EditMemory
                   id={memory.id}
                   token={token}
-                  memories={memories}
                   initialContent={memory.excerpt.slice(0, -3)}
                   initialCoverUrl={memory.coverUrl}
                   initialIsPublic={memory.isPublic}
@@ -62,7 +61,6 @@ export default async function Home() {
                   id={memory.id}
                   imageUrl={memory.coverUrl}
                   token={token}
-                  memories={memories}
                 />
               </div>
             </div>

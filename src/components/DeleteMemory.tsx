@@ -5,16 +5,10 @@ import { FiX } from 'react-icons/fi'
 interface DeleteProps {
   id: string
   token: any
-  setMemories: React.Dispatch<React.SetStateAction<Memory[]>>
-  memories: Memory[]
+  imageUrl: any
 }
 
-export default function Delete({
-  id,
-  token,
-  setMemories,
-  memories,
-}: DeleteProps) {
+export default function Delete({ id, token }: DeleteProps) {
   const handleDeleteMemory = async () => {
     try {
       await api.delete(`/memories/${id}`, {
@@ -22,9 +16,6 @@ export default function Delete({
           Authorization: `Bearer ${token}`,
         },
       })
-      setMemories((prevMemories) =>
-        prevMemories.filter((memory) => memory.id !== id),
-      )
     } catch (error) {
       // Tratar erro de exclusão
     }

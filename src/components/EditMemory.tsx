@@ -7,8 +7,6 @@ import { Camera } from 'lucide-react'
 interface EditMemoryProps {
   id: string
   token: any
-  setMemories: React.Dispatch<React.SetStateAction<Memory[]>>
-  memories: Memory[]
   initialContent: string
   initialCoverUrl: string
   initialIsPublic: boolean
@@ -17,8 +15,6 @@ interface EditMemoryProps {
 export default function EditMemory({
   id,
   token,
-  setMemories,
-  memories,
   initialContent,
   initialCoverUrl,
   initialIsPublic,
@@ -58,19 +54,6 @@ export default function EditMemory({
       )
 
       // Atualizar as memórias no estado local com os dados editados
-      setMemories((prevMemories) =>
-        prevMemories.map((memory) => {
-          if (memory.id === id) {
-            return {
-              ...memory,
-              content,
-              coverUrl: uploadedCoverUrl,
-              isPublic,
-            }
-          }
-          return memory
-        }),
-      )
 
       setIsEditing(false)
     } catch (error) {

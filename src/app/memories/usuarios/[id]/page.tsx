@@ -18,12 +18,6 @@ interface Memory {
   isPublic: boolean
 }
 
-interface User {
-  id: string
-  name: string
-  avatarUrl: string
-}
-
 export default function Memories({ params }: any) {
   const [memories, setMemories] = useState<Memory[]>([])
 
