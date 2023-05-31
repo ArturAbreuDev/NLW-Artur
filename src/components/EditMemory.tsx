@@ -110,7 +110,6 @@ export default function EditMemory({
             <p className="mb-2 font-semibold text-gray-700">Texto da memória</p>
             <textarea
               name=""
-              type="text"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               className="mb-5 h-36 rounded border border-gray-200 bg-white p-5 shadow-sm"
