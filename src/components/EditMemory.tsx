@@ -73,7 +73,7 @@ export default function EditMemory({
     setIsEditing(true)
   }
 
-  const handleMediaSelect = (media) => {
+  const handleMediaSelect = (media: any) => {
     if (media) {
       setSelectedImage(media)
       const url = URL.createObjectURL(media)
