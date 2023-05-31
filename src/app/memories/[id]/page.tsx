@@ -1,25 +1,23 @@
-'use client'
-import { api } from '@/lib/api'
-import dayjs from 'dayjs'
-import ptBR from 'dayjs/locale/pt-br'
-import Cookie from 'js-cookie'
-import { ChevronLeft } from 'lucide-react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-dayjs.locale(ptBR)
+import { cookies } from 'next/headers'
+import { TimelineButton } from '@/components/TimelineButton'
+import { EmptyMemories } from '@/components/EmptyMemories'
+import { api } from '@/lib/api'
 
-interface Memory {
+interface MemoryType {
   id: string
   coverUrl: string
-  excerpt: string
-  createdAt: string
   content: string
 }
 
-export default async function Memories({ params }) {
-  const router = useRouter()
-  const token = Cookie.get('token')
+export default async function Memory({ params }: any) {
+  const isAuthenticated = cookies().has('token')
+
+  if (!isAuthenticated) {
+    return <EmptyMemories />
+  }
+
+  const token = cookies().get('token')?.value
 
   const response = await api.get(`/memories/${params.id}`, {
     headers: {
@@ -27,40 +25,31 @@ export default async function Memories({ params }) {
     },
   })
 
-  const memories: Memory[] = response.data
-
-  if (router.isFallback) {
-    return <div>Carregando...</div>
-  }
+  const memory: MemoryType = response.data
 
   return (
-    <div>
-      <div className="flex flex-col gap-10 overflow-x-hidden p-8">
-        <Link
-          href="/"
-          className="mt-3 flex items-center gap-1 text-sm text-gray-200 hover:text-gray-100"
-        >
-          <ChevronLeft className="h-4 w-4" />
-          voltar à timeline
-        </Link>
-        <div key={memories.id} className="space-y-4">
-          <div className="flex justify-between">
-            <time className="-ml-8 flex items-center gap-2 text-sm text-gray-100 before:h-px before:w-5 before:bg-gray-50">
-              {dayjs(memories.createdAt).format('D[ de ]MMMM[, ]YYYY')}
-            </time>
-          </div>
+    <div className="flex flex-1 flex-col gap-4 p-16">
+      <TimelineButton />
+      <article>
+        {memory.coverUrl.includes('.mp') ? (
+          <video
+            src={memory.coverUrl}
+            controls
+            className="aspect-video w-full rounded-lg object-cover"
+          />
+        ) : (
           <Image
-            src={memories.coverUrl}
-            alt=""
+            src={memory.coverUrl}
+            alt="Capa da memória do usuário"
             width={592}
             height={280}
             className="aspect-video w-full rounded-lg object-cover"
           />
-          <p className="break-words text-lg leading-relaxed text-gray-100">
-            {memories.content}
-          </p>
-        </div>
-      </div>
+        )}
+        <p className="py-4 text-lg leading-relaxed text-gray-100">
+          {memory.content}
+        </p>
+      </article>
     </div>
   )
 }
