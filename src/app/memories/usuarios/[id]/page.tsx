@@ -24,7 +24,7 @@ interface User {
   avatarUrl: string
 }
 
-export default function Memories({ params }: MemoriesProps) {
+export default function Memories({ params }) {
   const [memories, setMemories] = useState<Memory[]>([])
 
   useEffect(() => {
