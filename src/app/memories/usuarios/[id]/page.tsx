@@ -24,56 +24,6 @@ interface User {
   avatarUrl: string
 }
 
-export async function getStaticProps({ params }) {
-  try {
-    const token = Cookie.get('token')
-
-    const response = await api.get(`/users/${params.id}/memories`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-
-    const memories: Memory[] = response.data
-
-    return {
-      props: {
-        memories,
-      },
-    }
-  } catch (error) {
-    console.error('Error fetching memories:', error)
-    return {
-      props: {
-        memories: [],
-      },
-    }
-  }
-}
-
-export async function getStaticPaths() {
-  try {
-    const token = Cookie.get('token')
-
-    const response = await api.get('/users', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-
-    const users: User[] = response.data
-
-    const paths = users.map((user) => ({
-      params: { id: user.id },
-    }))
-
-    return { paths, fallback: false }
-  } catch (error) {
-    console.error('Error fetching users:', error)
-    return { paths: [], fallback: false }
-  }
-}
-
 export default function Memories({ params }: MemoriesProps) {
   const [memories, setMemories] = useState<Memory[]>([])
 
