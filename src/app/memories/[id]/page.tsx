@@ -14,56 +14,7 @@ interface Memory {
   coverUrl: string
   excerpt: string
   createdAt: string
-}
-
-export async function getStaticProps() {
-  try {
-    const token = Cookie.get('token')
-
-    const response = await api.get('/memories', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-
-    const memories: Memory[] = response.data
-
-    return {
-      props: {
-        memories,
-      },
-    }
-  } catch (error) {
-    console.error('Error fetching memories:', error)
-    return {
-      props: {
-        memories: [],
-      },
-    }
-  }
-}
-
-export async function getStaticPaths() {
-  try {
-    const token = Cookie.get('token')
-
-    const response = await api.get('/memories', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-
-    const memories: Memory[] = response.data
-
-    const paths = memories.map((memory) => ({
-      params: { id: memory.id },
-    }))
-
-    return { paths, fallback: false }
-  } catch (error) {
-    console.error('Error fetching memories:', error)
-    return { paths: [], fallback: false }
-  }
+  content: string
 }
 
 export default async function Memories({ params }) {
