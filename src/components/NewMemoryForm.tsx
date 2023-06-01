@@ -28,7 +28,7 @@ export function NewMemoryForm() {
       uploadFormData.set('folder', 'nlw-spacetime')
 
       const uploadResponse = await api.post(
-        'https://upload.imagekit.io/api/v1/files/upload',
+        'https://ik.imagekit.io/ke8jy4jzx',
         uploadFormData,
         {
           headers: {
