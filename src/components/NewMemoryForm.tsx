@@ -14,17 +14,12 @@ export function NewMemoryForm() {
     event.preventDefault()
 
     const formData = new FormData(event.currentTarget)
-
     const fileToUpload = formData.get('coverUrl')
 
     let coverUrl = ''
 
     if (fileToUpload) {
-      const uploadFormData = new FormData()
-      uploadFormData.set('file', fileToUpload)
-
-      const uploadResponse = await api.post('/upload', uploadFormData)
-
+      const uploadResponse = await api.post('/upload', fileToUpload)
       coverUrl = uploadResponse.data.fileUrl
     }
 
