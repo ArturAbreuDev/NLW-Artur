@@ -19,7 +19,15 @@ export function NewMemoryForm() {
     let coverUrl = ''
 
     if (fileToUpload) {
-      const uploadResponse = await api.post('/upload', fileToUpload)
+      const uploadFormData = new FormData()
+      uploadFormData.append('file', fileToUpload)
+
+      const uploadResponse = await api.post('/upload', uploadFormData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // Define o tipo de mídia como formulário codificado
+        },
+      })
+
       coverUrl = uploadResponse.data.fileUrl
     }
 
