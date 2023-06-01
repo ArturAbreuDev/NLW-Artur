@@ -28,8 +28,21 @@ export function NewMemoryForm() {
     if (fileToUpload) {
       const file = fileToUpload as File
 
+      const fileBuffer = await new Promise<Buffer>((resolve, reject) => {
+        const reader = new FileReader()
+
+        reader.onloadend = () => {
+          const buffer = Buffer.from(reader.result as ArrayBuffer)
+          resolve(buffer)
+        }
+
+        reader.onerror = reject
+
+        reader.readAsArrayBuffer(file)
+      })
+
       const uploadResponse = await imagekit.upload({
-        file,
+        file: fileBuffer,
         fileName: file.name,
         useUniqueFileName: true,
       })
