@@ -7,6 +7,7 @@ import { api } from '@/lib/api'
 import Cookie from 'js-cookie'
 import { useRouter } from 'next/navigation'
 import ImageKit from 'imagekit'
+import axios from 'axios'
 
 export function NewMemoryForm() {
   const imagekit = new ImageKit({
@@ -26,28 +27,21 @@ export function NewMemoryForm() {
     let coverUrl = ''
 
     if (fileToUpload) {
-      const file = fileToUpload as File
+      const formData = new FormData()
+      formData.append('file', fileToUpload)
 
-      const fileBuffer = await new Promise<Buffer>((resolve, reject) => {
-        const reader = new FileReader()
+      const uploadResponse = await axios.post(
+        'https://upload.imagekit.io/api/v1/files/upload',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Basic ${process.env.NEXT_PUBLIC_IMAGEKIT_PRIVATE_KEY}`,
+          },
+        },
+      )
 
-        reader.onloadend = () => {
-          const buffer = Buffer.from(reader.result as ArrayBuffer)
-          resolve(buffer)
-        }
-
-        reader.onerror = reject
-
-        reader.readAsArrayBuffer(file)
-      })
-
-      const uploadResponse = await imagekit.upload({
-        file: fileBuffer,
-        fileName: file.name,
-        useUniqueFileName: true,
-      })
-
-      coverUrl = uploadResponse.url
+      coverUrl = uploadResponse.data.url
     }
 
     const token = Cookie.get('token')
