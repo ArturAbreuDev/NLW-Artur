@@ -6,16 +6,9 @@ import { FormEvent } from 'react'
 import { api } from '@/lib/api'
 import Cookie from 'js-cookie'
 import { useRouter } from 'next/navigation'
-import ImageKit from 'imagekit'
 import axios from 'axios'
 
 export function NewMemoryForm() {
-  const imagekit = new ImageKit({
-    publicKey: 'public_gq0+jm9nDTblu7rB4rzoL2g48GA=',
-    privateKey: 'private_E3cmT718XVo1fe9otxlgSaQihvk=',
-    urlEndpoint: 'https://ik.imagekit.io/ke8jy4jzx',
-  })
-
   const router = useRouter()
 
   async function handleCreateMemory(event: FormEvent<HTMLFormElement>) {
