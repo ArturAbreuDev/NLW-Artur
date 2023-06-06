@@ -33,6 +33,9 @@ export default function EditMemory({
       if (selectedImage !== null) {
         const uploadFormData = new FormData()
         uploadFormData.append('file', selectedImage)
+        // @ts-ignore-next-line
+        uploadFormData.set('fileName', selectedImage.name)
+        uploadFormData.set('folder', 'nlw-spacetime')
 
         const uploadResponse = await api.post(
           'https://upload.imagekit.io/api/v1/files/upload',
