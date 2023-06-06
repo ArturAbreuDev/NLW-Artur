@@ -34,9 +34,17 @@ export default function EditMemory({
         const uploadFormData = new FormData()
         uploadFormData.append('file', selectedImage)
 
-        const uploadResponse = await api.post('/upload', uploadFormData)
+        const uploadResponse = await api.post(
+          'https://upload.imagekit.io/api/v1/files/upload',
+          uploadFormData,
+          {
+            headers: {
+              Authorization: `Basic cHJpdmF0ZV9FM2NtVDcxOFhWbzFmZTlvdHhsZ1NhUWlodms9Og==`,
+            },
+          },
+        )
 
-        uploadedCoverUrl = uploadResponse.data.fileUrl
+        uploadedCoverUrl = uploadResponse.data.url
       }
 
       await api.put(
